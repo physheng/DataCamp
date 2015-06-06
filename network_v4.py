@@ -61,7 +61,7 @@ def scrape_game_page(game, year, game_page_link):
                     #names.append(name.string)
             #print names    
         except:
-            names = None
+            names = []
         """
         Find Genre information
         """
@@ -129,6 +129,7 @@ print "Opening the file..."
 target = open('gameWebsite.json', 'w')
 network = open('gameNetwor.csv','w')
 for link in page_links:
+    print link
     page_soup = open_page(link)
     if page_soup is not None:
         game_tags = page_soup.find_all('tr', attrs = {'valign':'top'})
@@ -150,7 +151,7 @@ for link in page_links:
                 for i in range(len(developer_pair)):
                     network.write("%s, %s, %s\n" %(developer_pair[i][0], developer_pair[i][1], game_info['year']) )
             else:
-                print game_info['game_name'],"No developer"
+                #print game_info['game_name'], " has ","No developer"
                 pass
 
             #print game_info            
@@ -158,6 +159,6 @@ for link in page_links:
             target.write('\n')
     else:
          print "can't open the link: ", link
-    time.sleep(1)
+    time.sleep(0.5)
 target.close()
 network.close()
