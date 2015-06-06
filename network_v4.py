@@ -57,7 +57,6 @@ def scrape_game_page(game, year, game_page_link):
                     # Find developer ID
                     developer_link = name['href'].encode("ascii")
                     developer_id = int(re.search(r'\d+',developer_link).group())
-                    print (developer_id)
                     names.append(developer_id)
                     #names.append(name.string)
             #print names    
@@ -139,7 +138,7 @@ for link in page_links:
             game_page_link = 'http://www.mobygames.com'+item.td.a.get('href')
             #print game + '\t' + year + '\t' + game_page_link 
             game_info = scrape_game_page(game, year, game_page_link)
-            print type(game_info)
+            #print type(game_info)
             
             # Create network nodes and edges for each game
             # If there is one person in the credit list, node is connect to itself
