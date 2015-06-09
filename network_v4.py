@@ -76,12 +76,18 @@ def scrape_game_page(game, year, game_page_link):
             """
         try:
             rating_tags = game_soup.find_all('div', attrs = {'style':'font-size: 11pt; width: 2.75em; padding: 0.20em 0 0.50em 0; color: white; text-align: center; font-weight: bold'})
-            rating = 0;        
+            rating = 0;
+            divid = 0;
+
             for rating_tag in rating_tags:
-                rating += float(rating_tag.string)
-                rating = rating/len(rating_tags)
+                if rating_tag.string != '...':
+                    rating += float(rating_tag.string)
+                    divid += 1
+                #rating = rating/len(rating_tags)
+            rating = rating/(divid*1.0)
+
         except:
-            rating = None
+            rating = -1
     """
     Return a dictionary
     """
