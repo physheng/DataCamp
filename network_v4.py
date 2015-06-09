@@ -66,7 +66,9 @@ def scrape_game_page(game, year, game_page_link):
         Find Genre information
         """
         try:
-            genre = game_soup.find('div', attrs = {'id': "coreGameGenre"}).find('div', {'style':"font-size: 90%; padding-left: 1em; padding-bottom: 0.25em;"}).a.string
+            genre_tags = game_soup.find('div', attrs = {'id': "coreGameGenre"}).find('div', {'style':"font-size: 90%; padding-left: 1em; padding-bottom: 0.25em;"})
+            genre = genre_tags.a.string.encode("ascii")
+            #print genre
         except:
             genre = None
             """
@@ -145,7 +147,7 @@ for link in page_links:
             # If there is one person in the credit list, node is connect to itself
             # Other wise, create people pairs
             if len(game_info['Credits']) == 1:
-                 network.write("%s, %s, %s\n" %(game_info['Credits'][0], game_info['Credits'][0], game_info['year']) )
+                network.write("%s, %s, %s\n" %(game_info['Credits'][0], game_info['Credits'][0], game_info['year']) )
             elif len(game_info['Credits']) > 1:
                 developer_pair = list(itertools.combinations(game_info['Credits'],2))
                 for i in range(len(developer_pair)):
@@ -155,7 +157,7 @@ for link in page_links:
                 pass
 
             #print game_info            
-            target.write(json.dumps([game_info]))
+            target.write(json.dumps(game_info))
             target.write('\n')
     else:
          print "can't open the link: ", link
