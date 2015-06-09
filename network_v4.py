@@ -129,7 +129,7 @@ On each page, search for the game
 """
 print "Opening the file..."
 target = open('gameWebsite.json', 'w')
-network = open('gameNetwor.csv','w')
+network = open('gameNetwork.csv','w')
 for link in page_links:
     print link
     page_soup = open_page(link)
